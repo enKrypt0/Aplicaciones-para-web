@@ -2,10 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\Portafolio",
+    "\\Portafolio\\Imagenes",
     "\\Portafolio\\pages",
     "\\Primer Parcial",
-    "\\Primer Parcial\\Practica 1"
+    "\\Primer Parcial\\Practica 1",
+    "\\Primer Parcial\\Practica 1\\pages"
   ],
-  "SelectedNode": "\\Portafolio\\pages\\dominios.html",
+  "SelectedNode": "\\Portafolio\\portafolio.html",
   "PreviewInSolutionExplorer": false
 }
