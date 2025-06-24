@@ -14,18 +14,31 @@ export default function CoctelPersonalizadoList() {
     setTimeout(() => setCocteles(data), 1000); // Simula carga asincronica
   }, []);
 
-  return (
+   return (
     <div>
       <h2>Cocteles Personalizados</h2>
-      {cocteles.map((c) => (
-        <div key={c.id}>
-          <p>Usuario: {c.usuario}</p>
-          <p>Tipo de Licor: {c.TipoLicor}</p>
-          <p>Licor: {c.Licor}</p>
-          <p>Ingredientes: {c.ingredientes}</p>
-          <p>Precio: ${c.precio}</p>
-        </div>
-      ))}
+      <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
+        {cocteles.map((c) => (
+          <div
+            key={c.id}
+            style={{
+              border: '1px solid #ccc',
+              borderRadius: '8px',
+              padding: '16px',
+              minWidth: '220px',
+              background: '#fff',
+              color: '#222',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+            }}
+          >
+            <p><strong>Usuario:</strong> {c.usuario}</p>
+            <p><strong>Tipo de Licor:</strong> {c.TipoLicor}</p>
+            <p><strong>Licor:</strong> {c.Licor}</p>
+            <p><strong>Ingredientes:</strong> {c.ingredientes}</p>
+            <p><strong>Precio:</strong> ${c.precio}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

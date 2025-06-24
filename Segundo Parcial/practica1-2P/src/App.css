@@ -40,3 +40,17 @@
 .read-the-docs {
   color: #888;
 }
+
+.coctelesPersonalizados {
+  background-color: #222;
+}
+
+.TarjetasCoctelesPersonalizados {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  min-width: 220px;
+  background: #fff;
+  color: #222;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
