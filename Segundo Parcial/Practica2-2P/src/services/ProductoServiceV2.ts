@@ -1,3 +1,4 @@
+//Service creado por Diego Velez
 import type { Producto, CreateProductoRequest } from '../types/Producto';
 
 const SUPABASE_URL = 'https://arjjnnyvymlqtwtryen.supabase.co';

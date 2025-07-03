@@ -1,3 +1,4 @@
+//Interfaz creada por Diego Velez
 export interface usuario{
     id: number,
     nombre: string,

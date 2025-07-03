@@ -1,3 +1,4 @@
+//Modulo creado por Diego Velez
 import type { Producto } from '../types/Producto';
 export default function ProductoCard({ producto }: { producto: Producto }) {
  return (
