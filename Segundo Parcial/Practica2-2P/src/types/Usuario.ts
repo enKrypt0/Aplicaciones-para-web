@@ -1,6 +1,5 @@
-//Interfaz creada por Diego Velez
 export interface usuario{
-    id: number,
+    id: string,
     nombre: string,
     estado: boolean,
     direccion: string,
@@ -11,6 +10,5 @@ export interface CreateUsuarioRequest {
   nombre: string;
   email: string;
   direccion: string;
-  telefono: string;
-  estado: boolean;
-}
+  telefono: string; 
+} 

@@ -12,4 +12,4 @@ export interface CreateBarRequest {
   ubicacion: string;
   stack: string;
   disponibilidad: boolean;
-}
+} 

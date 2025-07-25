@@ -9,4 +9,4 @@ export interface CreateProductoRequest {
   nombre: string;
   precio: number;
   disponible: boolean;
-}
+} 
