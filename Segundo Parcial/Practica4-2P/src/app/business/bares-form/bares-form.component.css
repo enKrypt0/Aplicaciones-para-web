@@ -1,0 +1,97 @@
+.bares-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.header h1 {
+  background-color: #f4f4f4;
+  font-size: 40px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-card {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.bares-list {
+  background-color: #fafafa;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.bar-card {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.bar-image {
+  width: 120px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bar-info {
+  flex-grow: 1;
+  padding: 15px;
+}
+
+.bar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}

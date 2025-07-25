@@ -1,0 +1,105 @@
+<div class="bares-container">
+  <div class="header">
+    <h1>🍻 Gestión de Bares</h1>
+  </div>
+
+  <!-- Formulario para agregar o editar bares -->
+  <div class="form-card">
+    <h2>{{ modoEdicion ? '✏️ Editar Bar' : '➕ Agregar Nuevo Bar' }}</h2>
+
+    <form (ngSubmit)="modoEdicion ? actualizarBar() : agregarBar()" #barForm="ngForm">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          class="form-control"
+          [(ngModel)]="nuevoBar.nombre"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="direccion">Dirección:</label>
+        <input
+          type="text"
+          id="direccion"
+          name="direccion"
+          class="form-control"
+          [(ngModel)]="nuevoBar.direccion"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="horario">Horario:</label>
+        <input
+          type="text"
+          id="horario"
+          name="horario"
+          class="form-control"
+          [(ngModel)]="nuevoBar.horario"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="foto_url">Foto URL:</label>
+        <input
+          type="url"
+          id="foto_url"
+          name="foto_url"
+          class="form-control"
+          [(ngModel)]="nuevoBar.foto_url"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="cerrado">¿Está cerrado?</label>
+        <input
+          type="checkbox"
+          id="cerrado"
+          name="cerrado"
+          [(ngModel)]="nuevoBar.cerrado"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="!barForm.form.valid">
+          {{ modoEdicion ? '💾 Actualizar' : '➕ Agregar' }}
+        </button>
+
+        <button *ngIf="modoEdicion" type="button" class="btn btn-secondary" (click)="cancelarEdicion()">
+          ❌ Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Lista de bares -->
+  <div class="bares-list">
+    <h3>📋 Lista de Bares ({{ bares.length }})</h3>
+
+    <div *ngIf="bares.length === 0" class="empty-state">
+      No hay bares registrados. ¡Agrega uno!
+    </div>
+
+    <div *ngFor="let b of bares" class="bar-card">
+      <img [src]="b.foto_url" alt="{{ b.nombre }}" class="bar-image" />
+      <div class="bar-info">
+        <h4>{{ b.nombre }}</h4>
+        <p><strong>Dirección:</strong> {{ b.direccion }}</p>
+        <p><strong>Horario:</strong> {{ b.horario }}</p>
+        <p><strong>Estado:</strong> {{ b.cerrado ? 'Cerrado' : 'Abierto' }}</p>
+      </div>
+      <div class="bar-actions">
+        <button class="btn btn-edit" (click)="editarBar(b)">✏️ Editar</button>
+        <button class="btn btn-delete" (click)="eliminarBar(b.id)">🗑️ Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Este componente lo hizo Jostin Delgado
+</footer>

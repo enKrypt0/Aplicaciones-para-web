@@ -1,59 +1,21 @@
-# Practica42P
+Pasos para ejecutar el programa: 
+    1.- Tener instalado AngularCLI y Node.js.
+    2.- Ejecutar cd actividad5_angular (o el nombre de la carpeta)
+    3.- Ejecutar npm install 
+    4.- Instalar tailwindcss (si es que no está instalado)
+        4.1.- npm install tailwindcss @tailwindcss/postcss postcss --force
+        4.2.- Crear un archivo ".postcssrc.json" y escribir este código (ya está creado, solo hacer este paso si no está el archivo postcssrc):
+                {
+                    "plugins": {
+                        "@tailwindcss/postcss": {}
+                    }
+                }
+        4.3.- Importar tailwind en ./src/styles.css con: @import "tailwindcss"(solo ejectuar si no está importado en el archiov styles.css);
+    5.- Ejecutar "ng serve" para usar el programa en el puerto 4200, si se quiere usar otro puerto usar: "ng serve --port 4201"
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.2.
+David Cevallos-CRUD Usuarios.
+Jostin Delgado-CRUD Bares.
+Diego Vélez-CRUD Bebidas.
 
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+                            
+Reflexión: Angular es una herramienta de frontend que tiene una estructura fija en sus componentes, esto brinda la ventaja de ser más robusto y si contamos con su CLI la creación de componentes y otras estructuras serán más rápidas y seguras de crear.

@@ -1,0 +1,172 @@
+<div class="bebidas-container">
+  <!-- Header del componente -->
+  <div class="header">
+    <h1>🥤 Gestión de Bebidas</h1>
+  </div>
+
+  <!-- Formulario para agregar/editar bebidas -->
+  <div class="form-section">
+    <div class="form-card">
+      <h2>{{ modoEdicion ? '✏️ Editar Bebida' : '➕ Agregar Nueva Bebida' }}</h2>
+      
+      <form (ngSubmit)="modoEdicion ? actualizarBebida() : agregarBebida()" #bebidaForm="ngForm">
+        <div class="form-group">
+          <label for="nombre">Nombre de la Bebida:</label>
+          <input 
+            type="text" 
+            id="nombre" 
+            name="nombre"
+            [(ngModel)]="nuevaBebida.nombre"
+            placeholder="Ej: Coca-Cola"
+            required
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">Descripción:</label>
+          <textarea 
+            id="descripcion" 
+            name="descripcion"
+            [(ngModel)]="nuevaBebida.descripcion"
+            placeholder="Describe las características de la bebida..."
+            required
+            rows="3"
+            class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="imagenUrl">URL de la Imagen:</label>
+          <input 
+            type="url" 
+            id="imagenUrl" 
+            name="imagenUrl"
+            [(ngModel)]="nuevaBebida.imagenUrl"
+            placeholder="https://ejemplo.com/imagen.jpg"
+            required
+            class="form-control">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="precio">Precio (USD):</label>
+            <input 
+              type="number" 
+              id="precio" 
+              name="precio"
+              [(ngModel)]="nuevaBebida.precio"
+              placeholder="0.00"
+              min="0"
+              step="0.01"
+              required
+              class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="stock">Stock Disponible:</label>
+            <input 
+              type="number" 
+              id="stock" 
+              name="stock"
+              [(ngModel)]="nuevaBebida.stock"
+              placeholder="0"
+              min="0"
+              required
+              class="form-control">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button 
+            type="submit" 
+            class="btn btn-primary"
+            [disabled]="!bebidaForm.form.valid">
+            {{ modoEdicion ? '💾 Actualizar' : '➕ Agregar' }}
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn-secondary"
+            (click)="cancelarEdicion()"
+            *ngIf="modoEdicion">
+            ❌ Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista de bebidas -->
+  <div class="bebidas-section">
+    <h2>📋 Lista de Bebidas ({{ bebidas.length }})</h2>
+    
+    <!-- Estado de carga -->
+    <div *ngIf="cargando" class="loading">
+      <div class="spinner"></div>
+      <p>Cargando bebidas...</p>
+    </div>
+
+    <!-- Mensaje cuando no hay bebidas -->
+    <div *ngIf="!cargando && bebidas.length === 0" class="empty-state">
+      <p>🥤 No hay bebidas registradas</p>
+      <p>¡Agrega tu primera bebida usando el formulario de arriba!</p>
+    </div>
+
+    <!-- Grid de bebidas -->
+    <div *ngIf="!cargando && bebidas.length > 0" class="bebidas-grid">
+      <div 
+        *ngFor="let bebida of bebidas" 
+        class="bebida-card"
+        [class.editing]="bebidaSeleccionada?.id === bebida.id"
+        [class.sin-stock]="bebida.stock === 0">
+        
+        <!-- Imagen de la bebida -->
+        <div class="bebida-imagen">
+          <img 
+            [src]="bebida.imagenUrl" 
+            [alt]="bebida.nombre"
+            (error)="onImageError($event)">
+          <div class="stock-badge" [class.agotado]="bebida.stock === 0">
+            {{ bebida.stock === 0 ? 'Agotado' : bebida.stock + ' unidades' }}
+          </div>
+        </div>
+
+        <!-- Información de la bebida -->
+        <div class="bebida-info">
+          <h3 class="bebida-titulo">{{ bebida.nombre }}</h3>
+          <p class="bebida-descripcion">{{ bebida.descripcion }}</p>
+          <div class="bebida-precio">${{ bebida.precio | number:'1.2-2' }}</div>
+          <div class="bebida-id">ID: {{ bebida.id }}</div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="bebida-actions">
+          <button 
+            class="btn btn-edit"
+            (click)="editarBebida(bebida)"
+            title="Editar bebida">
+            ✏️ Editar
+          </button>
+          
+          <button 
+            class="btn btn-stock"
+            (click)="gestionarStock(bebida)"
+            title="Gestionar stock"
+            [class.restock]="bebida.stock === 0">
+            {{ bebida.stock === 0 ? '📦 Reabastecer' : '📋 Stock' }}
+          </button>
+          
+          <button 
+            class="btn btn-delete"
+            (click)="eliminarBebida(bebida.id)"
+            title="Eliminar bebida">
+            🗑️ Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Este componente lo hizo Diego Vélez
+</footer>

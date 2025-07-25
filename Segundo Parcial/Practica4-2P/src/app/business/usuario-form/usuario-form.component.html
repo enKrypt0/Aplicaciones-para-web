@@ -1,0 +1,125 @@
+<div class="usuarios-container">
+  <!-- Header -->
+  <div class="header">
+    <h1>👥 Gestión de Usuarios</h1>
+  </div>
+
+  <!-- Formulario -->
+  <div class="form-section">
+    <div class="form-card">
+      <h2>{{ modoEdicion ? '✏️ Editar Usuario' : '➕ Agregar Nuevo Usuario' }}</h2>
+      
+      <form (ngSubmit)="modoEdicion ? actualizarUsuario() : agregarUsuario()" #usuarioForm="ngForm">
+        <div class="form-group">
+          <label for="nombre_usuario">Nombre de Usuario:</label>
+          <input 
+            type="text" 
+            id="nombre_usuario" 
+            name="nombre_usuario"
+            [(ngModel)]="nuevoUsuario.nombre_usuario"
+            placeholder="Ej: Juan Perez"
+            required
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correo Electrónico:</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email"
+            [(ngModel)]="nuevoUsuario.email"
+            placeholder="ejemplo@correo.com"
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Teléfono:</label>
+          <input 
+            type="text" 
+            id="telefono" 
+            name="telefono"
+            [(ngModel)]="nuevoUsuario.telefono"
+            placeholder="0991234567"
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="direccion">Dirección:</label>
+          <input 
+            type="text" 
+            id="direccion" 
+            name="direccion"
+            [(ngModel)]="nuevoUsuario.direccion"
+            placeholder="Calle 123, Ciudad"
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+          <input 
+            type="date" 
+            id="fecha_nacimiento" 
+            name="fecha_nacimiento"
+            [(ngModel)]="nuevoUsuario.fecha_nacimiento"
+            class="form-control">
+        </div>
+
+        <div class="form-actions">
+          <button 
+            type="submit" 
+            class="btn btn-primary"
+            [disabled]="!usuarioForm.form.valid">
+            {{ modoEdicion ? '💾 Actualizar' : '➕ Agregar' }}
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn-secondary"
+            (click)="cancelarEdicion()"
+            *ngIf="modoEdicion">
+            ❌ Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista -->
+  <div class="usuarios-section">
+    <h2>📋 Lista de Usuarios ({{ usuarios.length }})</h2>
+
+    <div *ngIf="cargando" class="loading">
+      <p>Cargando usuarios...</p>
+    </div>
+
+    <div *ngIf="!cargando && usuarios.length === 0" class="empty-state">
+      <p>🙁 No hay usuarios registrados</p>
+    </div>
+
+    <div *ngIf="!cargando && usuarios.length > 0" class="usuarios-grid">
+      <div 
+        *ngFor="let usuario of usuarios" 
+        class="usuario-card"
+        [class.editing]="usuarioSeleccionado?.id === usuario.id">
+        
+        <div class="usuario-info">
+          <h3>{{ usuario.nombre_usuario }}</h3>
+          <p><strong>Email:</strong> {{ usuario.email }}</p>
+          <p><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
+          <p><strong>Dirección:</strong> {{ usuario.direccion }}</p>
+          <p><strong>Fecha de Nacimiento:</strong> {{ usuario.fecha_nacimiento }}</p>
+        </div>
+
+        <div class="usuario-actions">
+          <button class="btn btn-edit" (click)="editarUsuario(usuario)">✏️ Editar</button>
+          <button class="btn btn-delete" (click)="eliminarUsuario(usuario.id)">🗑️ Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+    Este componente lo hizo David Cevallos
+</footer>
