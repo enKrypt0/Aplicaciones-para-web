@@ -9,5 +9,4 @@ export interface Bar {
   horario: string;
   telefono: string;
   imageUrl: string;
-  abierto: boolean;
 } 

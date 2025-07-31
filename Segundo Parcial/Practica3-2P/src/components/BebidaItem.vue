@@ -1,53 +1,53 @@
 <script setup lang="ts">
-import type { Bebida } from '../types/Bebida'
+import type { Bebida } from '../types/Bebidas';
 
-interface Props {
-  bebida: Bebida
-}
-const props = defineProps<Props>()
-
-const emit = defineEmits<{
-  'toggle-stock': [bebidaId: number]
-  'remove-bebida': [bebidaId: number]
-}>()
-
-const handleToggleStock = () => emit('toggle-stock', props.bebida.id)
-const handleRemove = () => emit('remove-bebida', props.bebida.id)
+defineProps<{
+  bebida: Bebida;
+}>();
 </script>
 
 <template>
-  <div class="bebida-item" :class="{ 'agotado': props.bebida.stock === 0 }">
-    <div class="bebida-content">
-      <input
-        type="checkbox"
-        :checked="props.bebida.stock > 0"
-        @change="handleToggleStock"
-        class="bebida-checkbox"
-        :id="`bebida-${props.bebida.id}`"
-      />
-      <label :for="`bebida-${props.bebida.id}`">
-        {{ props.bebida.nombre }} – ${{ props.bebida.precio.toFixed(2) }}
-      </label>
+  <div class="bebida-card">
+    <img :src="bebida.imagenUrl" :alt="bebida.nombre" class="bebida-img" />
+    <div class="bebida-header">
+      <h3>{{ bebida.nombre }}</h3>
+      <div class="bebida-actions">
+        <slot name="actions"></slot>
+      </div>
     </div>
-    <button @click="handleRemove" class="remove-button">🗑️</button>
+    <p><strong>Descripción:</strong> {{ bebida.descripcion }}</p>
+    <p><strong>Precio:</strong> ${{ bebida.precio }}</p>
+    <p><strong>Stock:</strong> {{ bebida.stock }}</p>
   </div>
 </template>
 
 <style scoped>
-.bebida-item {
+.bebida-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  min-width: 220px;
+  background: #fff;
+  color: #222;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bebida-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.bebida-header {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  align-items: center;
+  width: 100%;
 }
-.bebida-item.agotado {
-  background-color: #f8d7da;
-}
-.remove-button {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
+.bebida-actions button {
+  margin-left: 8px;
 }
 </style>

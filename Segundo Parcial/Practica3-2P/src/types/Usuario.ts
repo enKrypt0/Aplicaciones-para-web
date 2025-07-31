@@ -1,9 +1,10 @@
-// Interface creada por David Cevallos
-export interface usuario{
-    id: number,
-    nombre: string,
-    direccion: string,
-    telefono: string,
-    email: string
-    disponible: boolean
+export interface Usuario {
+    id: number;
+    nombre: string;
+    email: string;
+    direccion: string;
+    telefono: string;
+    fechaRegistro: Date;
+    estado: boolean;
+    
 }

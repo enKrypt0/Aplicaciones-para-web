@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import type { usuario } from '../types/Usuario'
+import type { Usuario } from '../types/Usuario'
 import UsuarioItem from './UsuarioItem.vue'
 
 interface Props {
-  usuarios: usuario[]
+  usuarios: Usuario[]
 }
 
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  'toggle-disponible': [usuarioId: number]
+  'toggle-estado': [usuarioId: number]
   'remove-usuario': [usuarioId: number]
 }>()
 
-const handleToggleDisponible = (usuarioId: number) => {
-  emit('toggle-disponible', usuarioId)
+const handleToggleEstado = (usuarioId: number) => {
+  emit('toggle-estado', usuarioId)
 }
 
 const handleRemoveUsuario = (usuarioId: number) => {
@@ -32,7 +32,7 @@ const handleRemoveUsuario = (usuarioId: number) => {
         v-for="usuario in props.usuarios"
         :key="usuario.id"
         :usuario="usuario"
-        @toggle-disponible="handleToggleDisponible"
+        @toggle-estado="handleToggleEstado"
         @remove-usuario="handleRemoveUsuario"
       />
     </div>

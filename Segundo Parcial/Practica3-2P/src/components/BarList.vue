@@ -2,20 +2,24 @@
 import type { Bar } from '../types/Bar'
 import BarItem from './BarItem.vue'
 
+/**
+ * COMPONENTE DE PRESENTACIÓN ("TONTO")
+ * 
+ * Este componente es responsable ÚNICAMENTE de:
+ * 1. Recibir la lista de bares vía props
+ * 2. Renderizar un BarItem por cada bar usando v-for
+ * 3. Propagar los eventos de BarItem hacia el componente padre
+ */
+
 interface Props {
-  bares: Bar[]
+  bars: Bar[]
 }
 
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  'toggle-abierto': [id: number]
   'remove-bar': [id: number]
 }>()
-
-const handleToggleAbierto = (barId: number) => {
-  emit('toggle-abierto', barId)
-}
 
 const handleRemoveBar = (barId: number) => {
   emit('remove-bar', barId)
@@ -26,12 +30,11 @@ const handleRemoveBar = (barId: number) => {
   <div class="bar-list">
     <h2>Lista de Bares</h2>
     
-    <div v-if="props.bares.length > 0" class="bares-container">
+    <div v-if="props.bars.length > 0" class="bars-container">
       <BarItem
-        v-for="bar in props.bares"
+        v-for="bar in props.bars"
         :key="bar.id"
         :bar="bar"
-        @toggle-abierto="handleToggleAbierto"
         @remove-bar="handleRemoveBar"
       />
     </div>
@@ -53,7 +56,7 @@ const handleRemoveBar = (barId: number) => {
   font-size: 1.3rem;
 }
 
-.bares-container {
+.bars-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
