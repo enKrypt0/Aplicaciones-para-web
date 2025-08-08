@@ -4,9 +4,9 @@ import { ICharacters } from "../interfaces/ICharacters";
 
 const URL = environment.url;
 
-    await sleep(2000);
-
 export const getCharacters = async (): Promise<ICharacters> => {
+
+    await sleep(2000);
 
 try {
 

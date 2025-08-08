@@ -1,1 +1,9 @@
-<p>characters works!</p>
+<div>
+  @if (characters.isLoading()) {
+    <div class="loading">Loading...</div>
+      <p>Loading characters...</p>
+  } 
+  @else {
+    <app-character-detail [characters]="characters.data()?.items ?? []"></app-character-detail>
+  }
+</div>

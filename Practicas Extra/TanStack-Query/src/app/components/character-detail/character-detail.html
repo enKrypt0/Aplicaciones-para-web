@@ -1,0 +1,13 @@
+<div>
+  @for (item of characters(); track $index)
+  {
+    <div (mouseenter)="prefetchData(item.id)">
+        <h1>{{ item.name }}</h1>
+        <p>{{ item.description }}</p>
+        <a [routerLink]="['/character', item.id]" class="hover:underline">
+            {{ item.name }}
+        </a>
+
+    </div>
+  } 
+</div>

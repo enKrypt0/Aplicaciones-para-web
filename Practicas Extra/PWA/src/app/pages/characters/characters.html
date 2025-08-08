@@ -1,0 +1,13 @@
+<ul>
+@for (element of dataCollection.items; track element.id) {
+    <li>
+        <a [routerLink]="['/character', element.id]">
+            <h2>{{ element.name }}</h2>
+        </a>
+    </li>
+} @empty {
+    <li>
+        <h2>No characters found</h2>
+    </li>
+}
+</ul>

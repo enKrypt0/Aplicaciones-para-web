@@ -1,0 +1,19 @@
+<div class="character-detail">
+    <h1>{{ character.name }}</h1>
+    
+    <div class="image-container">
+        <img [src]="character.image" [alt]="character.name" />
+    </div>
+    
+    <div class="character-info">
+        <p><strong>ID:</strong> {{ character.id }}</p>
+        <p><strong>Race:</strong> {{ character.race }}</p>
+        <p><strong>Gender:</strong> {{ character.gender }}</p>
+        <p><strong>Ki:</strong> {{ character.ki }}</p>
+        <p><strong>Max Ki:</strong> {{ character.maxKi }}</p>
+        <p><strong>Affiliation:</strong> {{ character.affiliation }}</p>
+        <p><strong>Description:</strong> {{ character.description }}</p>
+    </div>
+    
+    <a routerLink="/characters">← Back to Characters</a>
+</div>
