@@ -1,0 +1,129 @@
+<div class="personalizacion-container">
+  <h1>Personalización de Productos</h1>
+  
+  <!-- Lista de productos disponibles -->
+  <section class="productos-section">
+    <h2>Selecciona un producto</h2>
+    <div class="productos-grid">
+      <div 
+        *ngFor="let producto of productos" 
+        class="producto-card"
+        [class.selected]="productoSeleccionado?.id === producto.id"
+        (click)="seleccionarProducto(producto)">
+        <img [src]="producto.imagen" [alt]="producto.nombre" />
+        <h3>{{producto.nombre}}</h3>
+        <p class="precio">${{producto.precio}}</p>
+        <p class="stock">Stock: {{producto.cantidad}}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Panel de personalización -->
+  <section class="personalizacion-panel" *ngIf="productoSeleccionado">
+    <h2>Personaliza tu {{productoSeleccionado.nombre}}</h2>
+    
+    <div class="personalizacion-form">
+      <!-- Preview del producto -->
+      <div class="producto-preview">
+        <div class="preview-image">
+          <img [src]="productoSeleccionado.imagen" [alt]="productoSeleccionado.nombre" />
+          <div class="color-overlay" [style.background-color]="personalizacion.color.codigo"></div>
+          <div class="texto-overlay" *ngIf="personalizacion.texto.contenido">
+            {{personalizacion.texto.contenido}}
+          </div>
+        </div>
+      </div>
+
+      <!-- Controles de personalización -->
+      <div class="controles">
+        <!-- Selector de color -->
+        <div class="color-selector">
+          <label>Color:</label>
+          <div class="colores-grid">
+            <button 
+              *ngFor="let color of coloresDisponibles"
+              class="color-option"
+              [class.selected]="personalizacion.color.codigo === color.codigo"
+              [style.background-color]="color.codigo"
+              (click)="actualizarColor(color)"
+              [title]="color.nombre">
+            </button>
+          </div>
+        </div>
+
+        <!-- Texto personalizado -->
+        <div class="texto-personalizado">
+          <label for="texto">Texto personalizado:</label>
+          <input 
+            type="text" 
+            id="texto"
+            [(ngModel)]="personalizacion.texto.contenido"
+            (ngModelChange)="onTextoChange()"
+            placeholder="Ingresa tu texto aquí..."
+            maxlength="50" />
+          <small>Máximo 50 caracteres</small>
+        </div>
+
+        <!-- Posición del texto -->
+        <div class="posicion-selector">
+          <label for="posicion">Posición del texto:</label>
+          <select 
+            id="posicion"
+            [(ngModel)]="personalizacion.texto.posicion">
+            <option value="frontal">Frontal</option>
+            <option value="trasera">Trasera</option>
+            <option value="lateral">Lateral</option>
+          </select>
+        </div>
+
+        <!-- Cantidad -->
+        <div class="cantidad-selector">
+          <label for="cantidad">Cantidad:</label>
+          <input 
+            type="number" 
+            id="cantidad"
+            [(ngModel)]="personalizacion.cantidad"
+            (ngModelChange)="onCantidadChange()"
+            min="1" 
+            [max]="productoSeleccionado.cantidad" />
+        </div>
+
+        <!-- Resumen del precio -->
+        <div class="precio-total">
+          <h3>Total: ${{calcularPrecioTotal().toFixed(2)}}</h3>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="acciones">
+          <button 
+            class="btn-agregar-carrito"
+            (click)="agregarAlCarritoDirecto()"
+            [disabled]="personalizacion.cantidad < 1 || personalizacion.cantidad > productoSeleccionado.cantidad">
+            Agregar al Carrito
+          </button>
+          <button 
+            class="btn-guardar"
+            (click)="guardarPersonalizacion()"
+            [disabled]="personalizacion.cantidad < 1 || personalizacion.cantidad > productoSeleccionado.cantidad">
+            Guardar y Agregar al Carrito
+          </button>
+          <button 
+            class="btn-cancelar"
+            (click)="productoSeleccionado = null">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resumen del carrito -->
+  <div class="carrito-resumen" *ngIf="totalItems() > 0">
+    <div class="resumen-contenido">
+      <h3>Resumen del Carrito</h3>
+      <p><strong>Items: {{ totalItems() }}</strong></p>
+      <p><strong>Total: ${{ total().toFixed(2) }}</strong></p>
+      <button class="btn-ver-carrito" routerLink="/carrito">Ver Carrito Completo</button>
+    </div>
+  </div>
+</div>

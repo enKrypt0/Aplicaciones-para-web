@@ -1,0 +1,60 @@
+<div class="productos-container">
+  <div class="productos-header">
+    <h2>Catálogo de Productos</h2>
+    <div class="header-acciones">
+    </div>
+  </div>
+  
+  <div class="productos-grid">
+    <div class="producto-card" *ngFor="let producto of productos">
+      <div class="producto-imagen">
+        <img [src]="producto.imagen" [alt]="producto.nombre" />
+      </div>
+      
+      <div class="producto-info">
+        <h3>{{ producto.nombre }}</h3>
+        <p class="producto-color">Color: {{ producto.color }}</p>
+        <p class="producto-peso">Peso: {{ producto.peso }}kg</p>
+        <p class="producto-stock">Stock: {{ producto.cantidad }}</p>
+        <p class="producto-precio">${{ producto.precio.toFixed(2) }}</p>
+        
+        <div class="producto-acciones" *ngIf="obtenerCantidadEnCarrito(producto.id) === 0">
+          <div class="botones-productos">
+            <button 
+              class="btn-agregar" 
+              (click)="agregarAlCarrito(producto)"
+              [disabled]="producto.cantidad === 0">
+              {{ producto.cantidad === 0 ? 'Agotado' : 'Agregar al Carrito' }}
+            </button>
+            <button 
+              class="btn-personalizar" 
+              routerLink="/personalizacion"
+              [disabled]="producto.cantidad === 0">
+              ✨ Personalizar
+            </button>
+          </div>
+        </div>
+        
+        <div class="cantidad-controles" *ngIf="obtenerCantidadEnCarrito(producto.id) > 0">
+          <button class="btn-cantidad" (click)="disminuirCantidad(producto)">-</button>
+          <span class="cantidad">{{ obtenerCantidadEnCarrito(producto.id) }}</span>
+          <button 
+            class="btn-cantidad" 
+            (click)="aumentarCantidad(producto)"
+            [disabled]="obtenerCantidadEnCarrito(producto.id) >= producto.cantidad">
+            +
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="carrito-resumen" *ngIf="totalItems() > 0">
+    <div class="resumen-contenido">
+      <h3>Resumen del Carrito</h3>
+      <p><strong>Items: {{ totalItems() }}</strong></p>
+      <p><strong>Total: ${{ total().toFixed(2) }}</strong></p>
+      <button class="btn-ver-carrito" routerLink="/carrito">Ver Carrito Completo</button>
+    </div>
+  </div>
+</div>

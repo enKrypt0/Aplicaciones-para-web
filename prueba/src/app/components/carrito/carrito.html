@@ -1,0 +1,106 @@
+<div class="carrito-container">
+  <div class="carrito-header">
+    <h2>Mi Carrito de Compras</h2>
+    <button class="btn-volver" routerLink="/productos">← Seguir Comprando</button>
+  </div>
+
+  <div *ngIf="totalItems() === 0" class="carrito-vacio">
+    <h3>Tu carrito está vacío</h3>
+    <p>Agrega algunos productos para comenzar</p>
+    <button class="btn-comprar" routerLink="/productos">Explorar Productos</button>
+  </div>
+
+  <div *ngIf="totalItems() > 0" class="carrito-contenido">
+    <div class="carrito-items">
+      <div class="carrito-item" *ngFor="let item of carrito().items">
+        <div class="item-imagen">
+          <img [src]="item.producto.imagen" [alt]="item.producto.nombre" />
+        </div>
+        
+        <div class="item-info">
+          <h4>{{ item.producto.nombre }}</h4>
+          <p class="item-color">Color: {{ item.producto.color }}</p>
+          <p class="item-precio-unitario">${{ item.producto.precio.toFixed(2) }} c/u</p>
+          
+          <!-- Mostrar información de personalización si existe -->
+          <div *ngIf="item.personalizacion" class="personalizacion-info">
+            <div class="personalizacion-badge">✨ Personalizado</div>
+            <div class="personalizacion-detalles">
+              <p *ngIf="item.personalizacion.color.nombre"><strong>Color personalizado:</strong> {{ item.personalizacion.color.nombre }}</p>
+              <p *ngIf="item.personalizacion.texto.contenido"><strong>Texto:</strong> "{{ item.personalizacion.texto.contenido }}" ({{ item.personalizacion.texto.posicion }})</p>
+              <p><strong>Precio personalización:</strong> +${{ item.personalizacion.precios.personalizacion.toFixed(2) }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="item-controles">
+          <div class="cantidad-controles">
+            <button 
+              class="btn-cantidad" 
+              (click)="actualizarCantidadItem(item, item.cantidadSeleccionada - 1)">
+              -
+            </button>
+            <span class="cantidad">{{ item.cantidadSeleccionada }}</span>
+            <button 
+              class="btn-cantidad" 
+              (click)="actualizarCantidadItem(item, item.cantidadSeleccionada + 1)"
+              [disabled]="item.cantidadSeleccionada >= item.producto.cantidad">
+              +
+            </button>
+          </div>
+          
+          <div class="item-subtotal">
+            <strong>${{ item.subtotal.toFixed(2) }}</strong>
+          </div>
+          
+          <button 
+            class="btn-eliminar" 
+            (click)="eliminarItem(item)"
+            title="Eliminar producto">
+            🗑️
+          </button>
+        </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="carrito-resumen">
+      <h3>Resumen de Compra</h3>
+      
+      <div class="resumen-linea">
+        <span>Subtotal ({{ totalItems() }} items):</span>
+        <span>${{ subtotal().toFixed(2) }}</span>
+      </div>
+      
+      <div class="resumen-linea">
+        <span>Impuestos (12%):</span>
+        <span>${{ impuestos().toFixed(2) }}</span>
+      </div>
+      
+      <div class="resumen-linea">
+        <span>Envío:</span>
+        <span>
+          {{ costoEnvio() === 0 ? 'GRATIS' : '$' + costoEnvio().toFixed(2) }}
+          <small *ngIf="subtotal() < 50"> (Gratis en compras > $50)</small>
+        </span>
+      </div>
+      
+      <hr>
+      
+      <div class="resumen-total">
+        <span><strong>Total:</strong></span>
+        <span><strong>${{ total().toFixed(2) }}</strong></span>
+      </div>
+      
+      <div class="carrito-acciones">
+        <button class="btn-vaciar" (click)="vaciarCarrito()">
+          Vaciar Carrito
+        </button>
+        <button class="btn-pagar" (click)="procederAlPago()">
+          Proceder al Pago
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
